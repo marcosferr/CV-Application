@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { FormContext } from "../../context/FormContext";
+import FormWrapper from "../form-components/FormWrapper";
 const FormProfilePicture = () => {
   const { form, dispatch } = useContext(FormContext);
 
@@ -15,7 +16,7 @@ const FormProfilePicture = () => {
   };
 
   return (
-    <>
+    <FormWrapper className={"form-picture"}>
       <div className="profile-picture-container">
         {form.profilePicUrl ? (
           <img className="profile-pic" src={form.profilePicUrl} alt="Profile" />
@@ -32,7 +33,7 @@ const FormProfilePicture = () => {
         </p>
         <input type="file" onChange={handleProfilePicUpload} />
       </div>
-    </>
+    </FormWrapper>
   );
 };
 
