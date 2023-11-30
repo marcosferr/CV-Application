@@ -1,4 +1,11 @@
+import { useContext } from "react";
+import { FormContext } from "../context/FormContext";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 const Header = () => {
+  const { form, dispatch } = useContext(FormContext);
+  const navigate = useNavigate();
   return (
     <header>
       <div>
@@ -9,15 +16,22 @@ const Header = () => {
           </p>
         </div>
         <nav>
-          <a href="" className="nav-btn">
-            Edit CV
-          </a>
-          <a href="" className="nav-btn">
-            Preview CV
-          </a>
-          <a href="" className="btn-outline">
+          <Link to={`edit`}>Edit CV</Link>
+          <Link to={`preview`}>Preview CV</Link>
+          <button
+            href=""
+            className="btn-outline"
+            onClick={() => {
+              dispatch({
+                type: "FILL_EXAMPLE",
+                payload: "preview",
+              });
+              navigate("preview");
+              console.log(form);
+            }}
+          >
             Fill Example CV
-          </a>
+          </button>
         </nav>
       </div>
     </header>
