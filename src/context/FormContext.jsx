@@ -28,7 +28,19 @@ const formReducer = (state, action) => {
   switch (action.type) {
     case "PROFILE_PIC_URL":
       return { ...state, profilePicUrl: action.payload };
-
+    case "FILL_EXAMPLE":
+      return {
+        ...state,
+        profilePicUrl: "https://i.imgur.com/9KYq7VG.jpg",
+        firstName: "John",
+        lastName: "Doe",
+        profession: "Full Stack Developer",
+        city: "Barcelona",
+        country: "Spain",
+        linkedIn: "https://www.linkedin.com/in/johndoe/",
+        portfolioURL: "https://www.johndoe.com",
+        email: "romero@gmail.com",
+      };
     // handle your actions
     default:
       return state;
