@@ -5,6 +5,8 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Main from "./components/Main.jsx";
 import ErrorPage from "./components/ErrorPage.jsx";
+import CVDownload from "./components/form-sections/CVPreview.jsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -12,7 +14,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { path: "/", element: <Main /> },
-      { path: "preview", element: <h1>Preview</h1> },
+      { path: "preview", element: <CVDownload /> },
       { path: "edit", element: <Main /> },
     ],
   },
