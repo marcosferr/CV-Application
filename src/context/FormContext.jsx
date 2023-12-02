@@ -41,6 +41,25 @@ const formReducer = (state, action) => {
         portfolioURL: "https://www.johndoe.com",
         email: "romero@gmail.com",
       };
+    case "EDIT_NAME":
+      return { ...state, firstName: action.payload };
+    case "EDIT_LAST_NAME":
+      return { ...state, lastName: action.payload };
+    case "EDIT_PROFESSION":
+      return { ...state, profession: action.payload };
+    case "EDIT_CITY":
+      return { ...state, city: action.payload };
+    case "EDIT_LINKEDIN":
+      return { ...state, linkedIn: action.payload };
+    case "EDIT_PORTFOLIO":
+      return { ...state, portfolioURL: action.payload };
+    case "EDIT_EMAIL":
+      return { ...state, email: action.payload };
+    case "EDIT_PHONE":
+      return { ...state, phone: action.payload };
+    case "EDIT_DESCRIPTION":
+      return { ...state, description: action.payload };
+
     // handle your actions
     default:
       return state;

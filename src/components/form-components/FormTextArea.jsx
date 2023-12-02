@@ -3,6 +3,7 @@ const FormTextArea = ({
   label,
   name,
   handleChange,
+  action,
   value,
   placeholder,
 }) => {
@@ -13,7 +14,9 @@ const FormTextArea = ({
         <textarea
           rows={5}
           name={name}
-          onChange={handleChange}
+          onChange={(e) =>
+            handleChange({ type: action, payload: e.target.value })
+          }
           value={value}
           placeholder={placeholder}
         />
