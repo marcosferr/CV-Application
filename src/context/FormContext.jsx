@@ -114,6 +114,155 @@ const formReducer = (state, action) => {
         ...state,
         education: state.education.filter((item) => item.id !== action.payload),
       };
+    case "EDIT_POSITION":
+      return {
+        ...state,
+        workExperience: state.workExperience.map((item) =>
+          item.id === action.payload.id
+            ? { ...item, position: action.payload.value }
+            : item
+        ),
+      };
+    case "EDIT_COMPANY":
+      return {
+        ...state,
+        workExperience: state.workExperience.map((item) =>
+          item.id === action.payload.id
+            ? { ...item, company: action.payload.value }
+            : item
+        ),
+      };
+    case "EDIT_LOCATION":
+      return {
+        ...state,
+        workExperience: state.workExperience.map((item) =>
+          item.id === action.payload.id
+            ? { ...item, location: action.payload.value }
+            : item
+        ),
+      };
+    case "EDIT_FROM":
+      return {
+        ...state,
+        workExperience: state.workExperience.map((item) =>
+          item.id === action.payload.id
+            ? { ...item, from: action.payload.value }
+            : item
+        ),
+      };
+    case "EDIT_TO":
+      return {
+        ...state,
+        workExperience: state.workExperience.map((item) =>
+          item.id === action.payload.id
+            ? { ...item, to: action.payload.value }
+            : item
+        ),
+      };
+    case "EDIT_TASKS":
+      return {
+        ...state,
+        workExperience: state.workExperience.map((item) =>
+          item.id === action.payload.id
+            ? { ...item, tasks: action.payload.value }
+            : item
+        ),
+      };
+    case "ADD_WORK_EXPERIENCE":
+      return {
+        ...state,
+        workExperience: [
+          ...state.workExperience,
+          {
+            id: action.payload.id,
+            position: "",
+            company: "",
+            location: "",
+            from: "",
+            to: "",
+            tasks: "",
+          },
+        ],
+      };
+    case "DELETE_WORK_EXPERIENCE":
+      return {
+        ...state,
+        workExperience: state.workExperience.filter(
+          (item) => item.id !== action.payload
+        ),
+      };
+    case "EDIT_SKILL":
+      return {
+        ...state,
+        skills: state.skills.map((item) =>
+          item.id === action.payload.id
+            ? { ...item, skill: action.payload.value }
+            : item
+        ),
+      };
+    case "ADD_SKILL":
+      return {
+        ...state,
+        skills: [...state.skills, { id: action.payload.id, skill: "" }],
+      };
+    case "DELETE_SKILL":
+      return {
+        ...state,
+        skills: state.skills.filter((item) => item.id !== action.payload),
+      };
+    case "EDIT_LANGUAGE":
+      return {
+        ...state,
+        languages: state.languages.map((item) =>
+          item.id === action.payload.id
+            ? { ...item, language: action.payload.value }
+            : item
+        ),
+      };
+    case "EDIT_LEVEL":
+      return {
+        ...state,
+        languages: state.languages.map((item) =>
+          item.id === action.payload.id
+            ? { ...item, level: action.payload.value }
+            : item
+        ),
+      };
+    case "ADD_LANGUAGE":
+      return {
+        ...state,
+        languages: [
+          ...state.languages,
+          { id: action.payload.id, language: "", level: "" },
+        ],
+      };
+    case "DELETE_LANGUAGE":
+      return {
+        ...state,
+        languages: state.languages.filter((item) => item.id !== action.payload),
+      };
+    case "EDIT_INTEREST":
+      return {
+        ...state,
+        interests: state.interests.map((item) =>
+          item.id === action.payload.id
+            ? { ...item, interest: action.payload.value }
+            : item
+        ),
+      };
+    case "ADD_INTEREST":
+      return {
+        ...state,
+        interests: [
+          ...state.interests,
+          { id: action.payload.id, interest: "" },
+        ],
+      };
+    case "DELETE_INTEREST":
+      return {
+        ...state,
+        interests: state.interests.filter((item) => item.id !== action.payload),
+      };
 
     // handle your actions
     default:

@@ -6,6 +6,7 @@ const FormTextArea = ({
   action,
   value,
   placeholder,
+  id,
 }) => {
   return (
     <>
@@ -15,7 +16,10 @@ const FormTextArea = ({
           rows={5}
           name={name}
           onChange={(e) =>
-            handleChange({ type: action, payload: e.target.value })
+            handleChange({
+              type: action,
+              payload: { value: e.target.value, id: id },
+            })
           }
           value={value}
           placeholder={placeholder}

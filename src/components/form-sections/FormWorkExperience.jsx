@@ -2,54 +2,36 @@ import FormSection from "../form-components/FormSection";
 import FormInput from "../form-components/FormInput";
 import FormWrapper from "../form-components/FormWrapper";
 import FormTextArea from "../form-components/FormTextArea";
+import { useContext } from "react";
+import { FormContext } from "../../context/FormContext";
+import { v4 as uuidv4 } from "uuid";
+import WorkExperienceItem from "../form-components/WorkExperienceItem";
 const FormWorkExperience = ({ description }) => {
+  const { form, dispatch } = useContext(FormContext);
+  const addWorkExperience = () => {
+    dispatch({
+      type: "ADD_WORK_EXPERIENCE",
+      payload: { id: uuidv4() },
+    });
+  };
   return (
     <>
       <FormSection
         number={3}
         title={"Work Experience"}
         description={description}
-        action={() => {}}
+        action={addWorkExperience}
         actionText={"Add"}
       />
       <FormWrapper>
-        <div className="flex gap-2">
-          <FormInput
-            label="Your Position"
-            name="name"
-            type="text"
-            className="flex-1"
+        {form.workExperience.map((item) => (
+          <WorkExperienceItem
+            key={item.id}
+            id={item.id}
+            handleChange={dispatch}
+            values={item}
           />
-          <FormInput
-            label="Company"
-            name="lastName"
-            type="text"
-            className="flex-1"
-          />
-        </div>
-        <div className="flex gap-2">
-          <FormInput
-            label="Location"
-            name="name"
-            type="text"
-            className="flex-1"
-          />
-          <div className="flex gap-2 flex-1">
-            <FormInput
-              label="From"
-              name="lastName"
-              type="text"
-              className="flex-1"
-            />
-            <FormInput
-              label="To"
-              name="lastName"
-              type="text"
-              className="flex-1"
-            />
-          </div>
-        </div>
-        <FormTextArea label="Task / Achievements" name="" />
+        ))}
       </FormWrapper>
     </>
   );

@@ -1,27 +1,51 @@
 import FormSection from "../form-components/FormSection";
-import FormInput from "../form-components/FormInput";
+
 import FormWrapper from "../form-components/FormWrapper";
-import SelectInput from "../form-components/SelectInput";
+
 import LanguageInput from "../form-components/LanguageInput";
-const FormLanguage = ({ description, onDelete }) => {
+import { useContext } from "react";
+import { FormContext } from "../../context/FormContext";
+import { v4 as uuidv4 } from "uuid";
+const FormLanguage = ({ description }) => {
   const options = [
-    "Beginer",
+    "Beginner",
     "Basic",
     "Intermediate",
     "Advanced",
     "Native or Bilingual",
   ];
+
+  const formattedOptions = options.map((option) => ({
+    value: option,
+    label: option,
+  }));
+  const { form, dispatch } = useContext(FormContext);
+  const addLanguage = () => {
+    dispatch({
+      type: "ADD_LANGUAGE",
+      payload: { id: uuidv4() },
+    });
+  };
+  console.log(form.languages);
   return (
     <>
       <FormSection
         number={5}
         title={"Languages "}
         description={description}
-        action={() => {}}
+        action={addLanguage}
         actionText={"Add"}
       />
       <FormWrapper>
-        <LanguageInput options={options} />
+        {form.languages.map((item) => (
+          <LanguageInput
+            key={item.id}
+            id={item.id}
+            handleChange={dispatch}
+            values={item}
+            options={formattedOptions}
+          />
+        ))}
       </FormWrapper>
     </>
   );
