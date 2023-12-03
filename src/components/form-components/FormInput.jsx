@@ -7,6 +7,7 @@ const FormInput = ({
   value,
   placeholder,
   action,
+  id,
 }) => {
   return (
     <>
@@ -16,7 +17,10 @@ const FormInput = ({
           type={type}
           name={name}
           onChange={(e) =>
-            handleChange({ type: action, payload: e.target.value })
+            handleChange({
+              type: action,
+              payload: { value: e.target.value, id: id },
+            })
           }
           value={value}
           placeholder={placeholder}
