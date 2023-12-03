@@ -30,7 +30,8 @@ const exampleState = {
   portfolioURL: "https://www.johndoe.com",
   email: "johndoe@gmail.com",
   phone: "+34 123 456 789",
-  description: "GPT 3 is the best thing since sliced bread",
+  description:
+    "I am a full stack developer with 5 years of experience. Some of my skills include React, JavaScript, HTML, CSS, Python and Django. I am a full stack developer with 5 years of experience. Some of my skills include React, JavaScript, HTML, CSS, Python and Django.",
   education: [
     {
       id: "1",

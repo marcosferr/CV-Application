@@ -10,7 +10,8 @@ import {
 import { pdf } from "@react-pdf/renderer";
 import ReactPDF from "@react-pdf/renderer";
 import { PDFViewer } from "@react-pdf/renderer";
-
+import { useContext } from "react";
+import { FormContext } from "../../context/FormContext";
 // Create styles
 const styles = StyleSheet.create({
   page: {
@@ -76,22 +77,7 @@ const styles = StyleSheet.create({
     display: "flex",
   },
 });
-const form = {
-  profilePicUrl: "https://i.imgur.com/9KYq7VG.jpg",
-  firstName: "John",
-  lastName: "Doe",
-  profession: "Full Stack Developer",
-  city: "Barcelona",
-  country: "Spain",
-  linkedIn: "https://www.linkedin.com/in/johndoe/",
-  portfolioURL: "https://www.johndoe.com",
-  email: "",
-  skills: ["HTML", "CSS", "JavaScript", "React", "NodeJS", "MongoDB"],
-  languages: [
-    { language: "Spanish", level: "Native / Bilingual" },
-    { language: "English", level: "Professional working proficiency" },
-  ],
-};
+
 // inside your component
 const handleDownload = async () => {
   const doc = <CV />;
@@ -109,95 +95,116 @@ const handleDownload = async () => {
 };
 
 const CVDownload = () => {
+  const { form } = useContext(FormContext);
   return (
     <div className="flex column">
       <button onClick={handleDownload}>Download PDF</button>
       <PDFViewer>
-        <CV />
+        <CV form={form} />
       </PDFViewer>
     </div>
   );
 };
 // Create Document Component
-const CV = () => (
-  <Document>
-    <Page size="A4" style={styles.page}>
-      <View style={styles.colLeft}>
-        <Image src="https://i.imgur.com/9KYq7VG.jpg" style={styles.img} />
-        <Text>Skills</Text>
-        {form.skills.map((skill) => (
-          <Text>- {skill}</Text>
-        ))}
-        <View style={styles.line} />
-        <Text>Languages</Text>
-        {form.languages.map((language) => (
-          <Text>
-            - {language.language} ({language.level})
-          </Text>
-        ))}
-        <View style={styles.line} />
-        <Text>Interest</Text>
-        <View style={styles.line} />
-      </View>
-      <View style={styles.colRight}>
-        <Text>Marcos Ferreira</Text>
-        <Text>Web Developer</Text>
-        <Text>
-          <Image src={"https://img.icons8.com/ios-filled/50/marker.png"} />{" "}
-          Barcelona, España
-        </Text>
-        <Text>
-          I'm a passionate and driven web developer with experience in front-end
-          development, back-end development, and database design. I'm always
-          looking for new challenges and opportunities to grow my skills and
-          expand my knowledge of the latest web technologies. In my free time,
-          you can find me tinkering with new web projects, playing guitar, or
-          exploring the beautiful San Francisco Bay Area.
-        </Text>
-        <View style={styles.contact}>
-          <View style={styles.flex1}>
-            <View style={styles.contactItem}>
-              <Image
-                style={styles.icon}
-                src={"https://img.icons8.com/ios-filled/50/linkedin.png"}
-              />
-              <Text style={styles.inline}>linkedn.com/marcos </Text>
-            </View>
-            <View style={styles.contactItem}>
-              <Image
-                style={styles.icon}
-                src={"https://img.icons8.com/material-rounded/48/mail.png"}
-              />
-              <Text style={styles.inline}>gmail.com</Text>
-            </View>
-          </View>
-
-          <View style={styles.flex1}>
-            <View style={styles.contactItem}>
-              <Image
-                style={styles.icon}
-                src={"https://img.icons8.com/ios-filled/50/phone.png"}
-              />
-              <Text> gmail.com</Text>
-            </View>
-            <View style={styles.contactItem}>
-              <Image
-                style={styles.icon}
-                src={"https://img.icons8.com/ios-filled/50/github.png"}
-              />
-              <Text> gmail.com</Text>
-            </View>
-          </View>
+const CV = ({ form }) => {
+  return (
+    <Document>
+      <Page size="A4" style={styles.page}>
+        <View style={styles.colLeft}>
+          <Image src="https://i.imgur.com/9KYq7VG.jpg" style={styles.img} />
+          <Text>Skills</Text>
+          {form.skills.map((skill) => (
+            <Text>- {skill}</Text>
+          ))}
+          <View style={styles.line} />
+          <Text>Languages</Text>
+          {form.languages.map((language) => (
+            <Text>
+              - {language.language} ({language.level})
+            </Text>
+          ))}
+          <View style={styles.line} />
+          <Text>Interest</Text>
+          {form.interests.map((interest) => (
+            <Text>
+              - {interest.emoji} {interest.interest}
+            </Text>
+          ))}
+          <View style={styles.line} />
         </View>
-        <Text>Work Experience</Text>
-        <View style={styles.line} />
-        <Text>Achievemenrts / Tasks</Text>
-        <View style={styles.line} />
-        <Text>Education</Text>
-        <View style={styles.line} />
-      </View>
-    </Page>
-  </Document>
-);
+        <View style={styles.colRight}>
+          <Text>
+            {form.firstName} {form.lastName}
+          </Text>
+          <Text>{form.profession}</Text>
+          <Text>
+            <Image src={"https://img.icons8.com/ios-filled/50/marker.png"} />{" "}
+            {form.city}, {form.country}
+          </Text>
+          <Text>{form.description}</Text>
+          <View style={styles.contact}>
+            <View style={styles.flex1}>
+              <View style={styles.contactItem}>
+                <Image
+                  style={styles.icon}
+                  src={"https://img.icons8.com/ios-filled/50/linkedin.png"}
+                />
+                <Text style={styles.inline}>{form.linkedIn} </Text>
+              </View>
+              <View style={styles.contactItem}>
+                <Image
+                  style={styles.icon}
+                  src={"https://img.icons8.com/material-rounded/48/mail.png"}
+                />
+                <Text style={styles.inline}>{form.email}</Text>
+              </View>
+            </View>
+
+            <View style={styles.flex1}>
+              <View style={styles.contactItem}>
+                <Image
+                  style={styles.icon}
+                  src={"https://img.icons8.com/ios-filled/50/phone.png"}
+                />
+                <Text> {form.phone}</Text>
+              </View>
+              <View style={styles.contactItem}>
+                <Image
+                  style={styles.icon}
+                  src={"https://img.icons8.com/ios-filled/50/github.png"}
+                />
+                <Text> {form.portfolioURL}</Text>
+              </View>
+            </View>
+          </View>
+          <Text>Work Experience</Text>
+          {form.workExperience.map((work) => (
+            <>
+              {" "}
+              <Text>
+                - {work.companyName} ({work.from} - {work.to})
+              </Text>
+              <Text>{work.title}</Text>
+              <Text>Achievements/ Tasks</Text>
+              <Text>{work.tasks}</Text>
+            </>
+          ))}
+
+          <View style={styles.line} />
+          <Text>Education</Text>
+          {form.education.map((edu) => (
+            <>
+              <Text>
+                - {edu.schoolName} ({edu.startingDate} - {edu.endDate})
+              </Text>
+              <Text>{edu.title}</Text>
+            </>
+          ))}
+          <View style={styles.line} />
+        </View>
+      </Page>
+    </Document>
+  );
+};
 
 export default CVDownload;
