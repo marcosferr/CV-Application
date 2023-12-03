@@ -279,7 +279,8 @@ textarea {
   gap: 10px;
 }
 select {
-  padding: 16px 10px;
+  color: black;
+  height: 2.3rem;
 }
 .emoji-selector {
   position: relative;
