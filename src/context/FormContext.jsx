@@ -42,23 +42,78 @@ const formReducer = (state, action) => {
         email: "romero@gmail.com",
       };
     case "EDIT_NAME":
-      return { ...state, firstName: action.payload };
+      return { ...state, firstName: action.payload.value };
     case "EDIT_LAST_NAME":
-      return { ...state, lastName: action.payload };
+      return { ...state, lastName: action.payload.value };
     case "EDIT_PROFESSION":
-      return { ...state, profession: action.payload };
+      return { ...state, profession: action.payload.value };
     case "EDIT_CITY":
-      return { ...state, city: action.payload };
+      return { ...state, city: action.payload.value };
     case "EDIT_LINKEDIN":
-      return { ...state, linkedIn: action.payload };
+      return { ...state, linkedIn: action.payload.value };
     case "EDIT_PORTFOLIO":
-      return { ...state, portfolioURL: action.payload };
+      return { ...state, portfolioURL: action.payload.value };
     case "EDIT_EMAIL":
-      return { ...state, email: action.payload };
+      return { ...state, email: action.payload.value };
     case "EDIT_PHONE":
-      return { ...state, phone: action.payload };
+      return { ...state, phone: action.payload.value };
     case "EDIT_DESCRIPTION":
-      return { ...state, description: action.payload };
+      return { ...state, description: action.payload.value };
+    case "EDIT_SCHOOL_NAME":
+      return {
+        ...state,
+        education: state.education.map((item) =>
+          item.id === action.payload.id
+            ? { ...item, schoolName: action.payload.value }
+            : item
+        ),
+      };
+    case "EDIT_TITLE":
+      return {
+        ...state,
+        education: state.education.map((item) =>
+          item.id === action.payload.id
+            ? { ...item, title: action.payload.value }
+            : item
+        ),
+      };
+    case "EDIT_STARTING_DATE":
+      return {
+        ...state,
+        education: state.education.map((item) =>
+          item.id === action.payload.id
+            ? { ...item, startingDate: action.payload.value }
+            : item
+        ),
+      };
+    case "EDIT_ENDING_DATE":
+      return {
+        ...state,
+        education: state.education.map((item) =>
+          item.id === action.payload.id
+            ? { ...item, endDate: action.payload.value }
+            : item
+        ),
+      };
+    case "ADD_EDUCATION":
+      return {
+        ...state,
+        education: [
+          ...state.education,
+          {
+            id: action.payload.id,
+            schoolName: "",
+            title: "",
+            startingDate: "",
+            endDate: "",
+          },
+        ],
+      };
+    case "DELETE_EDUCATION":
+      return {
+        ...state,
+        education: state.education.filter((item) => item.id !== action.payload),
+      };
 
     // handle your actions
     default:
