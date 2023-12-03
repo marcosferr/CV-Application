@@ -5,26 +5,33 @@ import EmojiSelector from "../aux-components/EmojiSelector";
 import { useContext } from "react";
 import { FormContext } from "../../context/FormContext";
 import { v4 as uuidv4 } from "uuid";
+import InterestItem from "../form-components/InterestItem";
 const FormInterests = ({ description, onDelete }) => {
+  const { form, dispatch } = useContext(FormContext);
+  const addInterest = () => {
+    dispatch({
+      type: "ADD_INTEREST",
+      payload: { id: uuidv4() },
+    });
+  };
   return (
     <>
       <FormSection
         number={6}
         title={"Interests "}
         description={description}
-        action={() => {}}
+        action={addInterest}
         actionText={"Add"}
       />
       <FormWrapper>
-        <div className="flex gap-2">
-          <EmojiSelector />
-          <FormInput
-            placeholder={"e.g Reading, Music, Sports"}
-            className={"w-100 flex-2"}
-            type="text"
+        {form.interests.map((item) => (
+          <InterestItem
+            key={item.id}
+            id={item.id}
+            handleChange={dispatch}
+            values={item}
           />
-          <button className="delete-btn"></button>
-        </div>
+        ))}
       </FormWrapper>
     </>
   );

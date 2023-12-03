@@ -13,11 +13,73 @@ const initialState = {
   email: "",
   phone: "",
   description: "",
-  education: [],
-  workExperience: [],
-  skills: [],
-  languages: [],
-  interests: [],
+  education: [{}],
+  workExperience: [{}],
+  skills: [""],
+  languages: [{}],
+  interests: [{ emoji: "😀" }],
+};
+const exampleState = {
+  profilePicUrl: "https://i.imgur.com/9KYq7VG.jpg",
+  firstName: "John",
+  lastName: "Doe",
+  profession: "Full Stack Developer",
+  city: "Barcelona",
+  country: "Spain",
+  linkedIn: "https://www.linkedin.com/in/johndoe/",
+  portfolioURL: "https://www.johndoe.com",
+  email: "johndoe@gmail.com",
+  phone: "+34 123 456 789",
+  description: "GPT 3 is the best thing since sliced bread",
+  education: [
+    {
+      id: "1",
+      schoolName: "University of Barcelona",
+      title: "Master in Computer Science",
+      startingDate: "2015",
+      endDate: "2017",
+    },
+    {
+      id: "2",
+      schoolName: "University of Barcelona",
+      title: "Bachelor in Computer Science",
+      startingDate: "2010",
+      endDate: "2014",
+    },
+  ],
+  workExperience: [
+    {
+      id: "1",
+      position: "Full Stack Developer",
+      company: "Google",
+      location: "Barcelona",
+      from: "2018",
+      to: "Present",
+      tasks:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisi vitae aliquam ultricies, nunc nisl ultricies nunc, vitae al",
+    },
+    {
+      id: "2",
+      position: "Frontend Developer",
+      company: "Facebook",
+      location: "Barcelona",
+      from: "2016",
+      to: "2018",
+      tasks:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisi vitae aliquam ultricies, nunc nisl ultricies nunc, vitae al",
+    },
+  ],
+  skills: ["React", "JavaScript", "HTML", "CSS", "Python", "Django"],
+  languages: [
+    { id: "1", language: "English", level: "Native" },
+    { id: "2", language: "Spanish", level: "Native" },
+    { id: "3", language: "French", level: "B2" },
+  ],
+  interests: [
+    { id: "1", interest: "Reading", emoji: "📚" },
+    { id: "2", interest: "Music", emoji: "🎵" },
+    { id: "3", interest: "Sports", emoji: "⚽" },
+  ],
 };
 
 // Step 2: Create the context
@@ -29,18 +91,7 @@ const formReducer = (state, action) => {
     case "PROFILE_PIC_URL":
       return { ...state, profilePicUrl: action.payload };
     case "FILL_EXAMPLE":
-      return {
-        ...state,
-        profilePicUrl: "https://i.imgur.com/9KYq7VG.jpg",
-        firstName: "John",
-        lastName: "Doe",
-        profession: "Full Stack Developer",
-        city: "Barcelona",
-        country: "Spain",
-        linkedIn: "https://www.linkedin.com/in/johndoe/",
-        portfolioURL: "https://www.johndoe.com",
-        email: "romero@gmail.com",
-      };
+      return { ...state, ...exampleState };
     case "EDIT_NAME":
       return { ...state, firstName: action.payload.value };
     case "EDIT_LAST_NAME":
@@ -250,12 +301,21 @@ const formReducer = (state, action) => {
             : item
         ),
       };
+    case "EDIT_EMOJI":
+      return {
+        ...state,
+        interests: state.interests.map((item) =>
+          item.id === action.payload.id
+            ? { ...item, emoji: action.payload.value }
+            : item
+        ),
+      };
     case "ADD_INTEREST":
       return {
         ...state,
         interests: [
           ...state.interests,
-          { id: action.payload.id, interest: "" },
+          { id: action.payload.id, interest: "", emoji: "😀" },
         ],
       };
     case "DELETE_INTEREST":
