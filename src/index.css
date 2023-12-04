@@ -289,3 +289,34 @@ select {
   position: absolute;
   bottom: 100%;
 }
+
+.emoji-selector button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  padding: 0px;
+  margin: 0px;
+  color: var(--accentColor);
+}
+
+.btn {
+  background-color: var(--accentColor);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.btn--danger {
+  background-color: var(--dangerColor);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.form-section {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}

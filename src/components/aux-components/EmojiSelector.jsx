@@ -7,6 +7,7 @@ const EmojiSelector = ({ handleChange, id, value }) => {
   const [showPicker, setShowPicker] = useState(false);
 
   const handleEmojiSelect = useCallback((emoji) => {
+    console.log(emoji);
     handleChange({
       type: "EDIT_EMOJI",
       payload: { id: id, value: emoji.native },
